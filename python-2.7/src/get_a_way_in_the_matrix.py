@@ -7,7 +7,7 @@
 """
 import random
 import numpy
-import copy
+import itertools
 
 def check_int_argument(arg, arg_name):
     if not isinstance(arg, int):
@@ -40,149 +40,63 @@ class RandomList(object):
         return self.numbers.pop(i)
 
 class Pair(object):
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    def __init__(self, value, sum):
+        self.value = value
+        self.sum = sum
     def __repr__(self):
-        return "Pair(%r, %r)" % (self.x, self.y)
+        return "Pair(%r, %r)" % (self.value, self.sum)
     def __str__(self):
-        return "(%r, %r)" % (self.x, self.y)
+        return "(v:%r, s:%r)" % (self.value, self.sum)
     
-
-class Coordinate(Pair):
-    def __init__(self, x, y):
-        check_int_argument(x, "x")
-        check_int_argument(y, "y")
-        if x < 0:
-            raise ValueError("'x' coordinate cannot be less than zero.")
-        super(Coordinate, self).__init__(x, y)
-        
-    def step(self):
-        self.x = self.x + 1
-        self.y = self.y + 1
-
 
 class Matrix2D(object):
-    """Простая двумерная матрица с итератором IterDiagonal по главной диагонали (от левого угла сверху до правого угла снизу).
-    Итератор выдает два объекта, каждый из которых представляет собой итератор: IterHorizontal, двигающийся вправо по ячейкам текущей
-    горизонтальной линии в матрице; а также IterVertical, двигающийся вниз по ячейкам текущей вертикальной линии в матрице.
-    
-    Горизонталь: ось X с размером width.
-    Вертикаль:   ось Y с размером height. 
+    """
+    Горизонталь: ось X с размером columns.  (N, width)
+    Вертикаль:   ось Y с размером rows.     (M, height) 
     """
     
-    def __init__(self, width, height):
-        check_int_argument(width, "matrix width")
-        check_int_argument(height, "matrix height")
-        self.matrix = numpy.zeros((width, height)).astype(int)
-        
-        #print "x=%d, y=%d" % (self.width(), self.height())
-    
+    def __init__(self, columns, rows):
+        check_int_argument(columns, "matrix width")
+        check_int_argument(rows,    "matrix height")
+        self.matrix = [[Pair(0, 0) for i in range(rows)] for j in range(columns)]
+   
     def width(self):
-        return self.matrix.shape[1]
+        return len(self.matrix)
     
     def height(self):
-        return self.matrix.shape[0]
-    
-    def print_matrix(self):
-        print self.matrix
+        return len(self.matrix[0])
     
     def __iter__(self):
-        self.pointer = Coordinate(0, 0)
+        self.curr_x = 0
+        self.curr_y = 0
         return self
     
     def next(self):
-        if self.pointer.x >= self.width():
-            raise StopIteration
-        if self.pointer.y >= self.height():
+        if self.curr_y >= self.height():
             raise StopIteration
         
+        elem = self.matrix[self.curr_x][self.curr_y]
         
-        self.pointer.step()
-        #self.coord['x']
+        self.curr_x = self.curr_x + 1
+        if self.curr_x >= self.width():
+            self.curr_x = 0
+            self.curr_y = self.curr_y + 1
 
-
-class RandMatrix2D(Matrix2D):
-    def __init__(self, width, height):
-        super(RandMatrix2D, self).__init__(width, height)
-        rand_list = RandomList(1, width * height)
-        it = numpy.nditer(self.matrix, flags=['multi_index'])
-        for r in rand_list:
-            if it.finished:
-                break
-            #print "it_val=%d it_coords=<%s> rand_val=%d" % (it[0], it.multi_index, r)
-            self.matrix[it.multi_index[0]][it.multi_index[1]] = r
-            it.iternext()
-
-
-class SublineMatrix2D(object):
-    def __init__(self, matrix, xy_coord):
-        self.matrix = matrix
-        self.xy_origin = xy_coord
-        self.xy_current = copy.copy(self.xy_origin)
-    
-    def __iter__(self):
-        self.xy_current.x = self.xy_origin.x
-        self.xy_current.y = self.xy_origin.y
-        return self
-    
-    def next(self):
-        raise StopIteration # Without orientation (in subclasses: vertical, horizontal...) iterator doen't move.
-
-    def get_min_sum(self):
-        if self.xy_current.x > 0:
-            _left = self.matrix[self.xy_current.x - 1][self.xy_current.y]
-            
-        pass
-        # get_near
-        # get_prev
-
-    def get_current_x(self):
-        return self.xy_current.x
-    
-    def get_current_y(self):
-        return self.xy_current.y
-
-
-class VerticalSublineMatrix2D(SublineMatrix2D):
-
-    def __init__(self, matrix, xy_coordinate):
-        super(VerticalSublineMatrix2D, self).__init__(matrix, xy_coordinate)
-        pass
-    
-    def __iter__(self):
-        return self
-
-    def next(self):
-        raise StopIteration
-
-    def get_min_sum(self):
-        pass
-        # get_near
-        # get_prev
+        return elem
 
 
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":
-    m = RandMatrix2D(10, 5)
-    m.print_matrix()
-    
-    p = Pair('a3',10)
-    print p
-    
-    c = Coordinate(1, 1)
-    print c.x
-    #rlist = RandomList(1, 100)
-    #res = list()
-    #for elem in rlist:
-    #    res.append(elem)
-    #print res
+    n = 10
+    m = 5
+    matrix = Matrix2D(n, m)
+    rand_list = RandomList(1, n * m)
 
-    #n, m = 10, 10
-    #matrix = numpy.zeros((n, m)).astype(int)
+    for elem, rand_val in itertools.izip(matrix, rand_list):
+        elem.value = rand_val
+        
+    for elem in matrix:
+        print "%d %d" % (elem.value, elem.sum)
+        
     
-    #print matrix[2, 3]
-    #matrix[2, 3] = 4
-    #print matrix
     
-     
