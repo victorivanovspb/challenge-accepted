@@ -6,7 +6,6 @@
     встречается лишь единожды.
 """
 import random
-import numpy
 import itertools
 
 def check_int_argument(arg, arg_name):
