@@ -143,4 +143,4 @@ if __name__ == "__main__":
     
     # Результат
     print list(reversed(way))
-    # matrix.print_matrix()
+    

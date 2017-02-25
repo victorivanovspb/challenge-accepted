@@ -20,7 +20,7 @@ class KeyIterator(object):
         res = self.key[self.pos]
         self.pos = 0 if len(self.key) - 1 == self.pos else self.pos
         return res      
-# END of class KeyIterator ----------------------------------------------------
+
 
 def xor_cipher(msg, key):
     """Функция шифрования/дешифрования, представляет из себя цикл с двумя итераторами. Выход из цикла по достижении конца сообщения (msg)."""
@@ -30,15 +30,18 @@ def xor_cipher(msg, key):
         res.append(char ^ key_val)
     return res
 
+
 def lines_around(func):
     def wrapped(*args, **kwargs):
         print ""
         func(*args, **kwargs)
     return wrapped
 
+
 @lines_around
 def print_message(msg):
     print msg
+
 
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":

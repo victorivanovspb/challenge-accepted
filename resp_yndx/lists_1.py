@@ -10,6 +10,7 @@ class Pair:
         self.key = key
         self.value = value
 
+
 class ValuesIterator:
     """Самодельный итератор."""
     def __init__(self, keys, data):
@@ -30,7 +31,7 @@ class ValuesIterator:
         self.dIndex = self.dIndex + 1
             
         return Pair(k, v)
-# END of class ValuesIterator -------------------------------------------------
+
 
 class ValuesIterator2:
     def __init__(self, data):
@@ -45,13 +46,14 @@ class ValuesIterator2:
         else:
             self.index = self.index + 1
             return None
-# END of class ValuesIterator2 ------------------------------------------------
+
 
 def merge_lists(keys_list, values_list):
     dict = {}
     for k in ValuesIterator(keys_list, values_list):
         dict[k.key] = k.value
     return dict
+
 
 def merge_lists2(keys_list, values_list):
     dict = {}
