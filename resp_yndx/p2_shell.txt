@@ -1,0 +1,1 @@
+shell> less ./access.log.1 | cut -d' ' -f1 | sort | uniq -c | sort -n -r | head -n10
