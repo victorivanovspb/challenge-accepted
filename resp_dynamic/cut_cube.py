@@ -10,9 +10,11 @@ class FragmentError(Exception):
     def __init__(self, err):
         Exception.__init__(self, err)
 
+
 class Fragment(object):
     @staticmethod
     def __get_rounded_half_(value):
+        """Целочисленное значение разделяется на целых 2 части: для чётного значения - на равные части, а для нечётного - на ближайшие."""
         if type(value) != int:
             raise TypeError("argument is not integer")
         if value < 1:
@@ -35,21 +37,26 @@ class Fragment(object):
     def __x_is_max_side_(self):
         if self.x >= self.y and self.x >= self.z:
             return True
+        return False
         
     def __y_is_max_side_(self):
         if self.y >= self.x and self.y >= self.z:
             return True
+        return False
     
     def __z_is_max_side_(self):
         if self.z >= self.x and self.z >= self.y:
             return True
+        return False
 
     def is_minimal(self):
+        """Проверка: является ли текущий фрагмент минимальным со сторонами (1,1,1)?"""
         if self.x == 1 and self.y == 1 and self.z == 1:
             return True
         return False
     
     def cut(self):
+        """Текущий фрагмент разделяется на части по наибольшей стороне. Притом, наибольшая сторона делится напополам."""
         if self.is_minimal():
             raise FragmentError("cannot cut minimal fragment (1,1,1)")
         
@@ -69,24 +76,28 @@ class Fragment(object):
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":
     fragments = []
-    fragments.append(Fragment(3, 3, 3))
+    fragments.append(Fragment(3, 3, 3)) # исходный фрагмент
     
     all_fragments_are_minimal = False 
-    counter = 0
+    counter = 0 # счётчик этапов/распилов
+    # Выполнять распил фрагментов до тех пор, пока все они не станут минимальными.
     while not all_fragments_are_minimal:
         counter += 1
         new_fragments = []
         
+        # В рамках каждой итерации распиливаются все доступные неминимальные фрагменты.
         all_fragments_are_minimal = True
         for fragment in fragments:
             if not fragment.is_minimal():
                 all_fragments_are_minimal = False
                 new_fragments.append(fragment.cut())
+        # После распилки к доступным фрагментам добавляются новые фрагменты. 
         fragments.extend(new_fragments)
         
         if all_fragments_are_minimal:
             break
         
+        # Отладочная информация по текущему этапу/распилу.
         msg = str(counter) + " [" + str(len(fragments)) + "]: "
         for fragment in fragments:
             msg += str(fragment) + " "
