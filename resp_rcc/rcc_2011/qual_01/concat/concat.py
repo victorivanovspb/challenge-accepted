@@ -1,13 +1,7 @@
 # -*- coding: utf-8 -*-# -*- coding: utf-8 -*-
-"""
-"""
 import sys
 
-
-# -----------------------------------------------------------------------------
 if __name__ == "__main__":
-
-
     line = sys.stdin.readline()
     
     result = list("")
@@ -28,7 +22,3 @@ if __name__ == "__main__":
                 result.append(ch)
     
     sys.stdout.write("".join(result))        
-    
-    sys.exit()
-    
-    #print func()
