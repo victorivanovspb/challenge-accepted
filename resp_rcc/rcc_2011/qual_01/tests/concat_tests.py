@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import tests_common
+import tests_common # resp_rcc/tests_common
 import pytest
 from subprocess import Popen, PIPE
 
