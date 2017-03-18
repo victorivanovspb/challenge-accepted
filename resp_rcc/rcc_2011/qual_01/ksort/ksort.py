@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import sys
-#import random
 
 def parse_integers(msg):
     result = list()
@@ -8,17 +7,6 @@ def parse_integers(msg):
     for i in mass:
         result.append(int(i))
     return result
-
-#def coin_toss():
-#    return True if random.randint(1, 2) == 1 else False
-
-#def mix(mass, k):
-#    for idx, el in enumerate(mass):
-#        mix_el = coin_toss()
-#        if mix_el and idx + k < len(mass):
-#            el2 = mass[idx + k]
-#            mass[idx + k] = el
-#            mass[idx] = el2
 
 def get_el_group_by_k(mass, start_pos, k):
     result = []
