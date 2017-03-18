@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
+import sys
 import random
+
+def parse_integers(msg):
+    result = list()
+    mass = msg.split(" ")
+    for i in mass:
+        result.append(int(i))
+    return result
 
 def coin_toss():
     return True if random.randint(1, 2) == 1 else False
@@ -70,14 +78,15 @@ if __name__ == "__main__":
     #print mixed_mass
 
     #mixed_mass = mass = [6, 10, 4, 1, 2]
-    mixed_mass = [40, 70, 17, 36, 34, 6, 61, 27, 69, 16, 46, 41, 12, 57, 28, 28, 4, 45, 75, 56, 7, 72, 72, 53, 38, 50, 42, 33, 21, 61, 63, 64, 21, 15, 51, 25, 8, 77]
-    k = 13
+    #mixed_mass = [40, 70, 17, 36, 34, 6, 61, 27, 69, 16, 46, 41, 12, 57, 28, 28, 4, 45, 75, 56, 7, 72, 72, 53, 38, 50, 42, 33, 21, 61, 63, 64, 21, 15, 51, 25, 8, 77]
+    n = int(sys.stdin.readline().strip('\n'))
+    msg = sys.stdin.readline().strip('\n') 
+    mixed_mass = parse_integers(msg)
+    k = int(sys.stdin.readline().strip('\n'))
+  
     sorted_mass = list(mixed_mass)
     sorted_mass.sort(key=int)
 
-    #print mixed_mass
-    #print k
-    
     if check_mass(mixed_mass, k, sorted_mass):
         #print "check_mass() get True"
         
@@ -85,8 +94,10 @@ if __name__ == "__main__":
         for g in xrange(k):
             gmass = get_el_group_by_k(mixed_mass, g, k)
             sum_val += count_kgroup(gmass, k, g)
-        print str(sum_val)
+        sys.stdout.write(str(sum_val))
+        #print str(sum_val)
             
     else:
-        print str(-1)
+        sys.stdout.write(str(-1))
+        #print str(-1)
     
