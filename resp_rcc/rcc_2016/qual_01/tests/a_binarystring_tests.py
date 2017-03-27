@@ -42,12 +42,11 @@ def test_simple_assume(task_file, answer_file):
         answ_msg = answer.readline().strip('\n')
         if answ_msg == "impossible":
             counter += 1
+        elif count_string(task_msg) == count_string(answ_msg):
+            counter += 1
         else:
-            if count_string(task_msg) == count_string(answ_msg):
-                counter += 1
-            else:
-                err_msg = "Troubles with tests data file + \'" + task_file + "\', test number=" + str(i) + "."
-                assert err_msg == -1
+            err_msg = "Troubles with tests data file + \'" + task_file + "\', test number=" + str(i) + "."
+            assert err_msg == -1
     answer.close()
     task.close()
     
