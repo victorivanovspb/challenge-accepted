@@ -84,9 +84,8 @@ def count_string(msg):
             
 if __name__ == "__main__":
     n = int(sys.stdin.readline())
-    
     for i in xrange(n):
-        mass = parse_integers(sys.stdin.readline())
+        mass = parse_integers(sys.stdin.readline().strip("\n"))
         a = mass[0] # 00
         b = mass[1] # 01
         c = mass[2] # 10
@@ -100,5 +99,3 @@ if __name__ == "__main__":
         res = increase_0_to_00(res, a)
         res = increase_1_to_11(res, d)
         sys.stdout.write(res + "\n")
-        
-        #print "Count=" + str(count_string(res))        
