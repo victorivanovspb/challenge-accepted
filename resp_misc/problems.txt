@@ -28,3 +28,8 @@
         минутной стрелкой на циферблате часов.
 
         watchface_angle_between_hour_and_minute.py
+
+
+    4.  Необходимо перевернуть строку различными способами.
+
+        invert_a_string.py
