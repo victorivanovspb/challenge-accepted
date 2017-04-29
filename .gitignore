@@ -2,3 +2,7 @@
 \.settings/org\.eclipse\.core\.resources\.prefs
 
 *.pyc
+
+resp_rcc/tests_common/__init__\.py
+
+\.idea/
