@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+
+# Working dir: challenge-accepted
 import tests_common # resp_rcc/tests_common
 import pytest
 from subprocess import Popen, PIPE
+
 
 @pytest.mark.parametrize(('f1', 'f2'),tests_common.get_filenames("./resp_rcc/rcc_2011/qual_01/tests/concat_tests_data/", 1, 15))
 def test_simple_assume(f1, f2):

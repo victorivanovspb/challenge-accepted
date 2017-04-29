@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+# Working dir: challenge-accepted
 import tests_common # resp_rcc/tests_common
 import pytest
 from subprocess import Popen, PIPE
