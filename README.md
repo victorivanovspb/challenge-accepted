@@ -9,7 +9,7 @@
   <li>
     <strong>RCC 2011</strong>
     <ul>
-      <li>Квалификационный раунд №1 <a href="challenge-rcc-2011-q1">challenge-rcc-2011-q1</a></li>
+      <li>Квалификационный раунд №1 <a href="github.com/victorivanovspb/challenge-rcc-2011-q1">challenge-rcc-2011-q1</a></li>
     </ul>
     <br />
   </li>
